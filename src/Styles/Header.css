@@ -1,0 +1,29 @@
+#headerdiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+}
+
+#headerdiv #header {
+    font-weight: bold;
+    margin-left: 50px;
+}
+
+#headerdiv #address {
+    margin-right: 50px;
+}
+
+.form-style{
+    margin: 5px;
+    width: auto;
+    height: auto;
+}
+.text-field{
+    width: 80vw;
+}
+#text-field{
+    width: auto;
+    height: auto;
+}
