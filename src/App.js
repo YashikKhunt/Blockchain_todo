@@ -24,7 +24,7 @@ function App() {
       setUser(acc[0]);
     });
     loadtodo();
-  }, []);
+  }, [todos]);
 
 
   //Getting user account..
@@ -43,11 +43,27 @@ function App() {
   //Adding The task to Blockchain
   const addtodo = async (title, desc, priority, status) => {
     const tx = await todoContract.methods.addTask(title.toString(), desc.toString(), priority.toString(), status).send({
-      from: curruser
+      from: curruser,
     }).then((reciept) => {
+      const todo = Promise.all(fetchletesttask());
       alert("The Task has succesfully added..");
     });
   };
+
+  //fetching letest block..
+  const fetchletesttask = async ()=>{
+    const count = await gettasklength();
+    let taskdeta = await todoContract.methods.getTask((count-1)).call();
+    let todo = {
+      id: parseInt(taskdeta.id),
+      title: taskdeta.title,
+      status: (taskdeta.status) ? "Completed" : "Not Completed",
+      desc: taskdeta.desc,
+      priority: taskdeta.priority
+    }
+    console.log("first:- " + todo);
+    return todo;
+  }
 
 
   //lode all todo funtion
@@ -67,8 +83,6 @@ function App() {
       _todos.push(myTodo);
     }
     settodos(_todos);
-    //console.log(_todos);
-
   };
 
 

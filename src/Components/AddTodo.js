@@ -9,67 +9,55 @@ import Box from '@material-ui/core/Box'
 import '../Styles/Header.css';
 
 function AddTodo(props) {
-    const { register, handleSubmit, formState: { errors }, control } = useForm();
-
-    // const [title, settitle] = useState("");
-    // const [desc, setdesc] = useState("");
-    // const [status, setStatus] = useState(false);
-    //const [startDate, setStartDate] = useState(null);
-    // const [priority, setPriority] = useState("");
-
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
     const onSubmit = (data) => {
+        data.status==="true" ? data.status=true : data.status=false;
         props.addtodo(data.title, data.desc, data.priority, data.status);
-        console.log(data.title);
+        console.log(data);
+        reset();
     };
-
-    // const submit = (e) => {
-    //     e.preventdefault()
-    //     props.addtodo(title, desc, priority, status); // this is the back
-    //     settitle("");
-    //     setdesc("");
-    //     setStatus("");
-    //     //setStartDate(null);
-    //     setPriority(null);
-    // }
-
 
     return (
         <Container maxWidth="md">
             <h3>Add Todo Here </h3>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Box mb={1}>
-                    <Controller
+                    {/* <Controller
                         render={({ field }) => <TextField {...field} label="Enter title" fullWidth />}
                         name="title"
                         control={control}
                         defaultValue=""
+                    /> */}
+                    <TextField 
+                        variant='outlined'
+                        label="Title"
+                        name='title'
+                        fullWidth
+                        {...register("title", { required: "Required"})}
+                        error={!!errors?.title}
+                        helperText={errors?.title ? "Please Enter Title" : null}
                     />
                 </Box>
                 <Box mb={1}>
-                    <Controller
+                    {/* <Controller
                         render={({ field }) => <TextField {...field} label="Description" fullWidth/>}
                         name="desc"
                         control={control}
                         defaultValue=""
+                    /> */}
+                    <TextField
+                        variant='outlined'
+                        label="Description"
+                        name='desc'
+                        fullWidth
+                        {...register("desc",{ required: "Required"})}
+                        error={!!errors?.desc}
+                        helperText={errors?.desc ? "Please Enter description" : null}
                     />
                 </Box>
                 <Box mb={1}>
-                    {/* <InputLabel id="demo-simple-select-label text-field" >Age</InputLabel> */}
-                    {/* <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        label="Age"
-                        className='text-field'
-                        placeholder='Enter status'
-                        value={status}
-                        onChange={(e) => setStatus(e.target.value)}
-                        defaultValue="Select"
-                    >
-                        <MenuItem value={true}>Complete</MenuItem>
-                        <MenuItem value={false}>Not Complete</MenuItem>
-                    </Select> */}
-                    <Controller
+                    {/* <Controller
                         name="status"
                         control={control}
                         render={({ field }) => <Select {...field} fullWidth >
@@ -77,25 +65,23 @@ function AddTodo(props) {
                             <MenuItem value={false}>Not Complete</MenuItem>
                         </Select>
                         }
-                    />
+                    /> */}
+                    <Select
+                        variant='outlined'
+                        // label="Status"
+                        name='status'
+                        fullWidth
+                        {...register("status", { required: "Required"})}
+                        error={!!errors?.status}
+                        helperText={errors?.status ? "Please Enter satus" : null}
+                        defaultValue={"select"}
+                        >
+                        <MenuItem value={"true"} >Complete</MenuItem>
+                        <MenuItem value={"false"}>Not Complete</MenuItem>
+                    </Select>
                 </Box>
                 <Box mb={1}>
-                    {/* <InputLabel id="demo-simple-select-label text-field" >Age</InputLabel> */}
-                    {/* <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        label="Age"
-                        className='text-field'
-                        placeholder='Enter priority'
-                        value={priority}
-                        onChange={(e) => setPriority(e.target.value)}
-                        defaultValue="Select"
-                    >
-                        <MenuItem value={"Low"} >Low</MenuItem>
-                        <MenuItem value={"Medium"}>Medium</MenuItem>
-                        <MenuItem value={"High"}>High</MenuItem>
-                    </Select> */}
-                    <Controller
+                    {/* <Controller
                         name="priority"
                         control={control}
                         render={({ field }) => <Select {...field} fullWidth>
@@ -104,14 +90,28 @@ function AddTodo(props) {
                             <MenuItem value={"High"}>High</MenuItem>
                         </Select>
                         }
-                    />
+                    /> */}
+                    <Select
+                        variant='outlined'
+                        // label="priority"
+                        name='priority'
+                        fullWidth
+                        {...register("priority", { required: "Required"})}
+                        error={!!errors?.priority}
+                        helperText={errors?.priority ? "Please Enter priority" : null}
+                        defaultValue={"select"}
+                        >
+                            <MenuItem value={"Low"} >Low</MenuItem>
+                            <MenuItem value={"Medium"}>Medium</MenuItem>
+                            <MenuItem value={"High"}>High</MenuItem>
+                    </Select>
                 </Box>
-                <div className='form-style'>
-                    <Button variant="contained" id="submit" type='submit'> Add</Button>
-                </div>
-                <div className='form-style'>
-                    <Button variant="contained" onClick={props.loadtodo} id="submit"> Get Tasks</Button>
-                </div>
+                <Box mb={1}>
+                    <Button variant="contained" id="submit" type='submit' color='success' fullWidth> Add</Button>
+                </Box>
+                <Box mb={1}>
+                    <Button variant="contained" onClick={props.loadtodo} id="submit" color='info' fullWidth> Get Tasks</Button>
+                </Box>
             </form>
 
         </Container>
