@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+
+.list-print{
+  width: 100%;
+  height: 80vh;
+  background-color: blue;
+}

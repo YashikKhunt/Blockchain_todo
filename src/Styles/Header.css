@@ -1,3 +1,5 @@
+/* For Header File */
+
 #headerdiv {
     display: flex;
     flex-direction: row;
@@ -15,11 +17,27 @@
     margin-right: 50px;
 }
 
+
+/* For AddTodo files */
+
+.todo-main{
+    height: 45vh;
+    /* background-color: red; */
+}
+
 .form-style{
     margin: 5px;
     width: auto;
     height: auto;
 }
+
+
+.form-style #submit {
+    margin-top: 20px;
+    width: 20%;
+    background-color: rgb(57, 105, 247);
+}
+
 .text-field{
     width: 80vw;
 }
@@ -27,3 +45,25 @@
     width: auto;
     height: auto;
 }
+
+
+/* For Todos.js File */
+
+.container{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin: 0px 50px 50px;
+    /* background-color: black; */
+}
+
+
+/*Single Todo data style*/
+.todo-data {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
