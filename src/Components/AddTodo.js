@@ -15,7 +15,7 @@ import '../Styles/Header.css';
 function AddTodo(props) {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
-    const [value, setValue] = useState()
+    const [value, setValue] = useState(new Date())
     //console.log(value)
 
     

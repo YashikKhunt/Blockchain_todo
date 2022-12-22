@@ -84,7 +84,7 @@ function App() {
 
   //updating Todo item..
   const updateitm = async (id, title, desc, priority, status, value)=>{
-    console.log(id, title, desc, priority,status,value)
+    //console.log(id, title, desc, priority,status,value)
     await todoContract.methods.updateTask(id, title, desc, priority,status,value).send({
       from: curruser
     })

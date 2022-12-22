@@ -25,8 +25,8 @@ const useStyles = makeStyles({
 });
 
 const STATUS = [
-    { text: "Complete", value: "true" },
-    { text: "Not Complete", value: "false" }
+    { text: "Completed", value: "true" },
+    { text: "Not Completed", value: "false" }
 ];
 
 const PRIORITY = [
@@ -36,14 +36,15 @@ const PRIORITY = [
 ];
 
 
-function Editlist({ id, updateitm, close }) {
+function Editlist({ id, updateitm, close, todo }) {
 
     const { handleSubmit, control } = useForm();
-    const [value, setValue] = useState()
+    const [value, setValue] = useState(new Date())
 
     const classes = useStyles();
     
     const onSubmit = (data) => {
+        console.log(todo);
         let dateto = (value.$D +"/"+(value.$M+1)+"/"+value.$y).toString();
         data.status === "true" ? data.status = true : data.status = false;
         updateitm(id, data.title, data.desc, data.priority, data.status, dateto).then(()=>{
@@ -87,6 +88,7 @@ function Editlist({ id, updateitm, close }) {
                                     {...field}
                                     label="Task Title.."
                                     fullWidth
+                                    defaultValue={todo.title}
                                 />
                             )
                         }
@@ -102,6 +104,7 @@ function Editlist({ id, updateitm, close }) {
                                     {...field}
                                     label="Description"
                                     fullWidth
+                                    defaultValue={todo.desc}
                                 />
                             )
                         }
@@ -114,8 +117,8 @@ function Editlist({ id, updateitm, close }) {
                         render={({ field }) => (
                             <Select
                                 {...field}
-                                defaultValue=""
                                 fullWidth
+                                defaultChecked={todo.status}
                             >
                                 {
                                     STATUS.map((option, index) => (
@@ -138,6 +141,7 @@ function Editlist({ id, updateitm, close }) {
                                 {...field}
                                 defaultValue=""
                                 fullWidth
+                                defaultChecked={todo.priority}
                             >
                                 {
                                     PRIORITY.map((option, index) => (

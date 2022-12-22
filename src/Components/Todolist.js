@@ -62,7 +62,7 @@ function Todolist({ todo, deleteitm, updateitm }) {
       >
         <Fade in={open}>
           <div className='popup'>
-            <Editlist id={id} updateitm={updateitm} close={handleClose}/>
+            <Editlist id={id} updateitm={updateitm} close={handleClose} todo={todo}/>
           </div>
         </Fade>
       </Modal>
