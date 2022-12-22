@@ -33,9 +33,8 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 
-export const Todos = (props) => {
+export const Todos = ({page, setPage, todos, deleteitm, updateitm}) => {
 
-    const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(4);
 
     const classes = useStyles();
@@ -49,7 +48,7 @@ export const Todos = (props) => {
         setPage(0);
     };
     const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - props.todos.length) : 0;
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - todos.length) : 0;
 
 
     return (
@@ -68,8 +67,8 @@ export const Todos = (props) => {
                 </TableHead>
                 <TableBody>
                     {/* showing only some(Here 7 rows from todos with the use of slice method to slice array and then map it to individual array to iterate..) */}
-                    {props.todos.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((todo) => {
-                        return <Todolist todo={todo} key={todo.id} deleteitm={props.deleteitm} updateitm={props.updateitm}/>
+                    {todos.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((todo) => {
+                        return <Todolist todo={todo} key={todo.id} deleteitm={deleteitm} updateitm={updateitm}/>
                     })}
 
                     {/* Showing empty row at the end of last page to maintain the footer of table.. */}
@@ -84,7 +83,7 @@ export const Todos = (props) => {
                     <TableRow>
                         <TablePagination
                             colSpan={3}
-                            count={props.todos.length}
+                            count={todos.length}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             SelectProps={{

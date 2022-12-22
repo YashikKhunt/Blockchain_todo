@@ -46,8 +46,9 @@ function Editlist({ id, updateitm, close }) {
     const onSubmit = (data) => {
         let dateto = (value.$D +"/"+(value.$M+1)+"/"+value.$y).toString();
         data.status === "true" ? data.status = true : data.status = false;
-        updateitm(id, data.title, data.desc, data.priority, data.status, dateto);
-        close();
+        updateitm(id, data.title, data.desc, data.priority, data.status, dateto).then(()=>{
+            close();
+        });
     };
 
     return (

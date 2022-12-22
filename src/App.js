@@ -12,6 +12,8 @@ function App() {
   //state hooks
   const [curruser, setUser] = useState('');
   const [todos, settodos] = useState([]);
+  
+  const [page, setPage] = useState(0);
   let count;
 
   useEffect(() => {
@@ -29,7 +31,9 @@ function App() {
   }
   
   const gettasklength = async () => {
-    count = await todoContract.methods.getTaskCount().call();
+    count = await todoContract.methods.getTaskCount(curruser).call();
+    //console.log(await todoContract.methods.getTaskCount().call());
+    console.log(curruser);
     return count;
   }
   
@@ -51,8 +55,10 @@ function App() {
     const length = await gettasklength(); 
     console.log(length);
     let i;
-    for (i = length-1; i >= 0; i--) {
-      let tasksdet = await todoContract.methods.getTask(i).call();
+    const start = length - 1 - (page)*10;
+    const end = Math.max(start - 10, 0);
+    for (i = start; i >= end; i--) {
+      let tasksdet = await todoContract.methods.getTask(i, curruser).call();
       let myTodo = {
         id: parseInt(tasksdet.id),
         title: tasksdet.title,
@@ -78,7 +84,7 @@ function App() {
 
   //updating Todo item..
   const updateitm = async (id, title, desc, priority, status, value)=>{
-    console.log("Haahaa") 
+    console.log(id, title, desc, priority,status,value)
     await todoContract.methods.updateTask(id, title, desc, priority,status,value).send({
       from: curruser
     })
@@ -89,7 +95,7 @@ function App() {
     <div className="App">
       <Header user={curruser} />
       <AddTodo addtodo={addtodo} loadtodo={loadtodo}/>
-      <Todos todos={todos} deleteitm={deletetodo} updateitm={updateitm}/>
+      <Todos todos={todos} deleteitm={deletetodo} updateitm={updateitm} page={page} setPage={setPage}/>
     </div>
   );
 }

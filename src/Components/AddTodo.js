@@ -22,9 +22,11 @@ function AddTodo(props) {
     const onSubmit = (data) => {
         let dateto = (value.$D + "/" + (value.$M + 1) + "/" + value.$y).toString();
         data.status === "true" ? data.status = true : data.status = false;
-        props.addtodo(data.title, data.desc, data.priority, data.status, dateto);
-        console.log(dateto);
-        reset();
+        props.addtodo(data.title, data.desc, data.priority, data.status, dateto).then(()=>{
+            reset();
+        }
+        );
+        //console.log(dateto);
     };
 
     return (
