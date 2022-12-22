@@ -42,7 +42,7 @@ function App() {
   const addtodo = async (title, desc, priority, status, value) => {
     await todoContract.methods.addTask(title.toString(), desc.toString(), priority.toString(), status, value).send({
       from: curruser,
-    }).then((reciept) => {
+    }).then(() => {
       //Promise.all(fetchletesttask());
       alert("The Task has succesfully added..");
       //loadtodo();
