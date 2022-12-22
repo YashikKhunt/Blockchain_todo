@@ -17,7 +17,8 @@ const useStyles = makeStyles({
     table: {
         minWidth: 500,
         width: "80%",
-        "margin-left": "10%"
+        "margin-left": "10%",
+        "height": "300px"
     },
 });
 
@@ -32,16 +33,10 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 
-
-
-
-
-
-
 export const Todos = (props) => {
 
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(7);
+    const [rowsPerPage, setRowsPerPage] = React.useState(4);
 
     const classes = useStyles();
 
@@ -67,17 +62,19 @@ export const Todos = (props) => {
                         <StyledTableCell align="center">Description</StyledTableCell>
                         <StyledTableCell align="center">Status</StyledTableCell>
                         <StyledTableCell align="center">Priority</StyledTableCell>
+                        <StyledTableCell align="center">Date</StyledTableCell>
+                        <StyledTableCell align="center">Action</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {/* showing only some(Here 7 rows from todos with the use of slice method to slice array and then map it to individual array to iterate..) */}
                     {props.todos.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((todo) => {
-                        return <Todolist todo={todo} key={todo.id} />
+                        return <Todolist todo={todo} key={todo.id} deleteitm={props.deleteitm} updateitm={props.updateitm}/>
                     })}
 
                     {/* Showing empty row at the end of last page to maintain the footer of table.. */}
                     {emptyRows > 0 && (
-                        <TableRow style={{ height: 53 * emptyRows }}>
+                        <TableRow style={{ height: 69 * emptyRows }}>
                             <TableCell colSpan={6} />
                         </TableRow>
                     )}

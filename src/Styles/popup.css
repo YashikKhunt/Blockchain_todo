@@ -1,0 +1,14 @@
+.popup {
+    width: 50%;
+    height: 60%;
+    background-color: rgb(30, 30, 65);
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+}
+.popup > Container {
+    color: #fff;
+}
