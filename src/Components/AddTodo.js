@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { Button } from '@mui/material';
+import { Button, FormControl, InputLabel } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
@@ -18,11 +18,11 @@ function AddTodo(props) {
     const [value, setValue] = useState(new Date())
     //console.log(value)
 
-    
+
     const onSubmit = (data) => {
         let dateto = (value.$D + "/" + (value.$M + 1) + "/" + value.$y).toString();
         data.status === "true" ? data.status = true : data.status = false;
-        props.addtodo(data.title, data.desc, data.priority, data.status, dateto).then(()=>{
+        props.addtodo(data.title, data.desc, data.priority, data.status, dateto).then(() => {
             reset();
         }
         );
@@ -69,19 +69,38 @@ function AddTodo(props) {
                     />
                 </Box>
                 <Box mb={1}>
-                    <Select
-                        variant='outlined'
-                        // label="Status"
-                        name='status'
-                        fullWidth
-                        {...register("status", { required: "Required" })}
-                        error={!!errors?.status}
-                        helperText={errors?.status ? "Please Enter satus" : null}
-                        defaultValue=""
-                    >
-                        <MenuItem value={"true"} >Complete</MenuItem>
-                        <MenuItem value={"false"}>Not Complete</MenuItem>
-                    </Select>
+                    <FormControl fullWidth >
+
+                        <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                        <Select
+                            variant='outlined'
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            label="Status"
+                            name='status'
+                            fullWidth
+                            {...register("status", { required: "Required" })}
+                            error={!!errors?.status}
+                            helperText={errors?.status ? "Please Enter satus" : null}
+                            defaultValue=""
+                        >
+                            <MenuItem value={"true"} >Complete</MenuItem>
+                            <MenuItem value={"false"}>Not Complete</MenuItem>
+                        </Select>
+                    </FormControl>
+
+                    {/* <FormControl fullWidth>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            // value={status}
+                            label="Status"
+                            // onChange={handleChange}
+                        >
+                            <MenuItem value={true}>Complete</MenuItem>
+                            <MenuItem value={false}>Not Complete</MenuItem>
+                        </Select>
+                    </FormControl> */}
                 </Box>
                 <Box mb={1}>
                     <Select
